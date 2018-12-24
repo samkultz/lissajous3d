@@ -51,7 +51,7 @@ function setup() {
   lisaX.position(20,80);
   lisaY = createSlider(-10,10, 1,1);
   lisaY.position(20,110);
-  lisaZ = createSlider(-10,10, 1,1);
+  lisaZ = createSlider(-10,10, 0,1);
   lisaZ.position(20,140);
 
   song.play();
