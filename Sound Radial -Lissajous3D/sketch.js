@@ -1,4 +1,4 @@
-var song;
+﻿var song;
 var amp;
 var smoo = 0;
 var volhistory = [];
@@ -43,15 +43,15 @@ function setup() {
   // lerpa
   lerptylerp = createSlider(0,1, .05,.001);
   lerptylerp.position(20,20)
-  //comprimento
-  cmp = createSlider(0,360*3, 360,1);
+  //velocidade
+  cmp = createSlider(-.3,.3, 0,.001);
   cmp.position(20,50);
   //lissajoux
-  lisaX = createSlider(-10,10, 1,.5);
+  lisaX = createSlider(-10,10, 1,.1);
   lisaX.position(20,80);
-  lisaY = createSlider(-10,10, 1,1);
+  lisaY = createSlider(-10,10, 1,.1);
   lisaY.position(20,110);
-  lisaZ = createSlider(-10,10, 0,1);
+  lisaZ = createSlider(-10,10, 0,.1);
   lisaZ.position(20,140);
 
   song.play();
@@ -66,6 +66,7 @@ function draw() {
   background(0);
 
   noFill();
+
 
   var vol = amp.getLevel();
   //abaixo pega volume do microfone.
@@ -92,11 +93,11 @@ function draw() {
   rotateX(0);
   rotateZ(0)
   rotateY(rot);
-  rot += .03;
+  rot += cmp.value();
 //-----------------------------
 
   beginShape();
-  for (var i = 0; i < cmp.value(); i++) {
+  for (var i = 0; i < 360; i++) {
 
     var r = map(volhistory[i], 0, 1, 10, height);
     var x = r * cos(i*lisaX.value());
@@ -104,11 +105,8 @@ function draw() {
     var z = r * sin(i*lisaZ.value())
     vertex(x, y, z);
 
-    // hu = map(volhistory[i], 0,1, 0,255);
-    // fill(hu, 255, 255);
-
   }
-  if(volhistory.length < cmp.value()){
+  if(volhistory.length < 360){
     endShape();
   }
 
@@ -130,10 +128,6 @@ function draw() {
     vertex(0,0,0)
     vertex(0,0,50)
   endShape()
-
-  box
-
-
 
   fill(255);
 }
