@@ -4,13 +4,9 @@ var smoo = 0;
 var volhistory = [];
 
 
-// mic.start();
-// mic = new p5.AudioIn();
-
-
 //-----------------------------------------------------------
 function preload() {
-  song = loadSound('1974-01-06 To Ramona-Philadelphia-belleseb32.mp3');
+  song = loadSound('1.mp3');
 }
 //-----------------------------------------------------------
 
@@ -23,8 +19,6 @@ function mousePressed() {
     }
   }
 }
-
-
 
 function keyTyped() {
   if (key === 's') {
@@ -44,19 +38,18 @@ function setup() {
   lerptylerp = createSlider(0,1, .05,.001);
   lerptylerp.position(20,20)
   //velocidade
-  cmp = createSlider(-.3,.3, 0,.001);
+  cmp = createSlider(-.3,.3, 0,.0001);
   cmp.position(20,50);
   //lissajoux
-  lisaX = createSlider(-10,10, 1,.1);
+  lisaX = createSlider(-10,10, 1,.0001);
   lisaX.position(20,80);
-  lisaY = createSlider(-10,10, 1,.1);
+  lisaY = createSlider(-10,10, 1,.0001);
   lisaY.position(20,110);
-  lisaZ = createSlider(-10,10, 0,.1);
+  lisaZ = createSlider(-10,10, 0,.0001);
   lisaZ.position(20,140);
 
   song.play();
   amp = new p5.Amplitude();
-
 }
 
 var rot = 0;
@@ -69,8 +62,6 @@ function draw() {
 
 
   var vol = amp.getLevel();
-  //abaixo pega volume do microfone.
-  // var vol = mic.getLevel();
 
   //lerptylerp - define o smoothing do gráfico
   smoo = lerp(smoo, vol, lerptylerp.value());
@@ -96,6 +87,7 @@ function draw() {
   rot += cmp.value();
 //-----------------------------
 
+
   beginShape();
   for (var i = 0; i < 360; i++) {
 
@@ -110,11 +102,13 @@ function draw() {
     endShape();
   }
 
+
   else{
     // colocar como CLOSE caso queira a linha que une o início ao fim.
     endShape();
     volhistory.splice(0, 1);
   }
+
 
   beginShape()
     vertex(0,0,0)
@@ -130,4 +124,8 @@ function draw() {
   endShape()
 
   fill(255);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
