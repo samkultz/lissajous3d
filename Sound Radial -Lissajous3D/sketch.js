@@ -1,4 +1,4 @@
-﻿var song;
+var song;
 var amp;
 var smoo = 0;
 var volhistory = [];
@@ -59,6 +59,8 @@ function setup() {
 
 }
 
+var rot = 0;
+
 function draw() {
   strokeWeight(10);
   background(0);
@@ -87,9 +89,10 @@ function draw() {
   var hu = 0;
 
 //----------3D CAM-------------
-  rotateX(mouseY*.01);
-  // rotateZ(angle)
-  rotateY(mouseX*.01);
+  rotateX(0);
+  rotateZ(0)
+  rotateY(rot);
+  rot += .03;
 //-----------------------------
 
   beginShape();
@@ -121,12 +124,14 @@ function draw() {
   endShape()
   beginShape()
     vertex(0,0,0)
-    vertex(0,50,0)
+    vertex(0,-50,0)
   endShape()
   beginShape()
     vertex(0,0,0)
     vertex(0,0,50)
   endShape()
+
+  box
 
 
 
